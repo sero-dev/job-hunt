@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
-
-namespace Persistence
+﻿namespace Persistence
 {
-    public partial class Amenity
+    public class Amenity
     {
-        public Amenity()
-        {
-            Jobs = new HashSet<Job>();
-        }
-
-        public int AmenitiesId { get; set; }
-        public byte IsTemporaryRemote { get; set; }
-        public byte IsFullyRemote { get; set; }
-        public byte HasAnnualBonus { get; set; }
-        public byte Has401Kmatching { get; set; }
-        public byte HasHealthInsurance { get; set; }
-        public byte HasDentalInsurance { get; set; }
-        public byte HasVisionInsurance { get; set; }
-        public byte HasPaidTimeOff { get; set; }
+        public bool IsTemporaryRemote { get; set; }
+        public bool IsFullyRemote { get; set; }
+        public bool HasAnnualBonus { get; set; }
+        public bool Has401Kmatching { get; set; }
+        public bool HasHealthInsurance { get; set; }
+        public bool HasDentalInsurance { get; set; }
+        public bool HasVisionInsurance { get; set; }
+        public bool HasPaidTimeOff { get; set; }
         public string Other { get; set; }
-
-        public virtual ICollection<Job> Jobs { get; set; }
     }
 }
