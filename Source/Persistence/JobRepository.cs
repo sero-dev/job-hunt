@@ -10,7 +10,7 @@ namespace Persistence
 {
     public class JobRepository : IRepository<Job>
     {
-        private readonly AmazonDynamoDBClient _client;
+        private readonly IAmazonDynamoDB _client;
 
         public JobRepository(AmazonDynamoDBClient client) 
         {
