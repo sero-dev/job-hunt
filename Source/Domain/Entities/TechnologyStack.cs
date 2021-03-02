@@ -1,4 +1,4 @@
-﻿namespace Persistence
+﻿namespace Domain.Entities
 {
     public class TechnologyStack
     {

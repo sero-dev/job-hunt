@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Persistence
+namespace Domain.Entities
 {
     public class Job
     {
