@@ -1,5 +1,7 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Commands;
+using Application.Queries;
 using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,31 +11,34 @@ namespace API.Controllers
     [ApiController]
     public class JobsController : ControllerBase
     {
-        private readonly IJobRepository _jobs;
+        private readonly IMediator _mediator;
 
-        public JobsController(IJobRepository jobs)
+        public JobsController(IMediator mediator)
         {
-            _jobs = jobs;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _jobs.GetAllAsync();
+            var query = new GetAllJobsQuery();
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpGet("{JobId}")]
+        [HttpGet("{jobId}")]
         public async Task<IActionResult> Get(string jobId)
         {
-            Job job = await _jobs.GetAsync(jobId);
-            return Ok(job);
+            var query = new GetJobByIdQuery(jobId);
+            var result = await _mediator.Send(query);
+            return result != null ? Ok(result) : NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] Job job)
         {
-            await _jobs.AddAsync(job);
+            var command = new CreateJobCommand(job);
+            await _mediator.Send(command);
             return Created("", job);
         }
     }

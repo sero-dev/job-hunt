@@ -1,3 +1,4 @@
+using Application;
 using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +23,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
             services.AddPersistence(Configuration);
+
             services.AddControllers();
+            
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddSwaggerGen(c =>
             {
