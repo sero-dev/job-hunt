@@ -46,6 +46,12 @@ namespace Persistence.Repository
         public async Task<T> GetAsync(string id)
         {
             Document result = await _table.GetItemAsync(id.ToString());
+
+            if (result == null)
+            {
+                return null;
+            }
+
             T entry = JsonSerializer.Deserialize<T>(result.ToJson());
             return entry;
         }
