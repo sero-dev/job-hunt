@@ -1,29 +1,37 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.DataModel;
 using Application.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Persistence.Utilities;
 
 namespace Persistence.Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly Table _table;
+        private DynamoDBOperationConfig _config;
+        protected readonly IDynamoDBContext Context;
         public virtual string DefaultTableName => "";
 
-        public Repository(IAmazonDynamoDB client) 
+        public Repository(IDynamoDBContext context) 
         {
-            _table = Table.LoadTable(client, DefaultTableName);
+            Context = context;
+            _config = new DynamoDBOperationConfig()
+            {
+                OverrideTableName = DefaultTableName
+            };
         }
 
         public async Task AddAsync(T entity)
         {
-            string json = JsonSerializer.Serialize(entity);
-            Document entry = Document.FromJson(json);
-            await _table.PutItemAsync(entry);
+            
+            //string json = JsonSerializer.Serialize(entity);
+            //Document entry = Document.FromJson(json);
+            //await _table.PutItemAsync(entry);
         }
 
         public Task AddRangeAsync(IEnumerable<T> entities)
@@ -38,22 +46,28 @@ namespace Persistence.Repository
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            List<Document> documents = await _table.Scan(new ScanFilter()).GetNextSetAsync();
-            List<T> entries = documents.ConvertAll(document => JsonSerializer.Deserialize<T>(document.ToJson()));
-            return entries;
+            //List<Document> documents = await _table.Scan(new ScanFilter()).GetNextSetAsync();
+            //List<T> entries = documents.ConvertAll(document => JsonSerializer.Deserialize<T>(document.ToJson()));
+            //return entries;
+
+            return null;
         }
 
         public async Task<T> GetAsync(string id)
         {
-            Document result = await _table.GetItemAsync(id.ToString());
+            T entity = await Context.LoadAsync<T>(id, _config);
 
-            if (result == null)
-            {
-                return null;
-            }
+            //Document result = await _table.GetItemAsync(id.ToString());
 
-            T entry = JsonSerializer.Deserialize<T>(result.ToJson());
-            return entry;
+            //if (result == null)
+            //{
+            //    return null;
+            //}
+
+            //T entry = JsonSerializer.Deserialize<T>(result.ToJson());
+            //return entry;
+
+            return entity;
         }
 
         public Task RemoveAsync(T entity)

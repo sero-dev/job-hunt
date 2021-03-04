@@ -1,5 +1,4 @@
-﻿using Amazon.DynamoDBv2;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using Persistence.Utilities;
 
@@ -9,9 +8,9 @@ namespace Persistence.Repository
     {
         public override string DefaultTableName => nameof(DatabaseTable.Jobs);
 
-        public JobRepository(IAmazonDynamoDB client) : base(client)
+        public JobRepository(JobContext context) : base(context)
         {
-        
+
         }
     }
 }
