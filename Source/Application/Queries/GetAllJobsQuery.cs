@@ -11,16 +11,16 @@ namespace Application.Queries
     {
         public class GetAllJobsQueryHandler : IRequestHandler<GetAllJobsQuery, IEnumerable<Job>>
         {
-            private readonly IJobRepository _jobRepository;
+            private readonly IUnitOfWork _unitOfWork;
 
-            public GetAllJobsQueryHandler(IJobRepository jobRepository)
+            public GetAllJobsQueryHandler(IUnitOfWork unitOfWork)
             {
-                _jobRepository = jobRepository;
+                _unitOfWork = unitOfWork;
             }
 
             public async Task<IEnumerable<Job>> Handle(GetAllJobsQuery request, CancellationToken cancellationToken)
             {
-                var jobs = await _jobRepository.GetAllAsync();
+                var jobs = await _unitOfWork.Jobs.GetAllAsync();
                 return jobs;
             }
         }
