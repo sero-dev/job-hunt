@@ -17,17 +17,17 @@ namespace Application.Queries
 
         public class GetJobByIdQueryHandler : IRequestHandler<GetJobByIdQuery, object>
         {
-            private readonly IJobRepository _jobRepository;
+            private readonly IUnitOfWork _unitOfWork;
 
-            public GetJobByIdQueryHandler(IJobRepository jobRepository)
+            public GetJobByIdQueryHandler(IUnitOfWork unitOfWork)
             {
-                _jobRepository = jobRepository;
+                _unitOfWork = unitOfWork;
             }
 
             public async Task<object> Handle(GetJobByIdQuery request, CancellationToken cancellationToken)
             {
-                await _jobRepository.GetAsync(request.Id);
-                return null;
+                Job job = await _unitOfWork.Jobs.GetAsync(request.Id);
+                return job;
             }
         }
     }
