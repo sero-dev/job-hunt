@@ -11,6 +11,7 @@ namespace Persistence
         {
             services.AddDefaultAWSOptions(configuration.GetAWSOptions());
             services.AddAWSService<IAmazonDynamoDB>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }
