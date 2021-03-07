@@ -2,8 +2,6 @@
 using Domain.Entities;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,17 +18,23 @@ namespace Application.Commands
 
         public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, bool>
         {
-            private IJobRepository _jobRepository;
+            private IUnitOfWork _unitOfWork;
 
-            public CreateJobCommandHandler(IJobRepository jobRepository)
+            public CreateJobCommandHandler(IUnitOfWork unitOfWork)
             {
-                _jobRepository = jobRepository;
+                _unitOfWork = unitOfWork;
             }
 
             public async Task<bool> Handle(CreateJobCommand request, CancellationToken cancellationToken)
             {
-                await _jobRepository.AddAsync(request.Job);
+                GenerateId(request.Job);
+                await _unitOfWork.Jobs.AddAsync(request.Job);
                 return true;
+            }
+
+            private void GenerateId(Job job)
+            {
+                job.Id = Guid.NewGuid().ToString();
             }
         }
     }
