@@ -1,7 +1,7 @@
 ﻿namespace Persistence.Utilities
 {
-    public enum DatabaseTable
+    public static class DatabaseTable
     {
-        Jobs
+        public static string Jobs => "Jobs";
     }
 }
