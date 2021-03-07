@@ -1,5 +1,4 @@
 using Application;
-using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
-using Persistence.Repository;
 
 namespace API
 {
@@ -27,11 +25,9 @@ namespace API
             services.AddPersistence(Configuration);
 
             services.AddControllers();
-            
-            services.AddScoped<IJobRepository, JobRepository>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobHunt API", Version = "v1" });
             });
         }
 
