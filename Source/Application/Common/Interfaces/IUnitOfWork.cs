@@ -6,6 +6,6 @@ namespace Application.Common.Interfaces
 {
     public interface IUnitOfWork
     {
-
+        public IJobRepository Jobs { get; }
     }
 }
