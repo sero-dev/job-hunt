@@ -1,16 +1,14 @@
-﻿using Application.Common.Interfaces;
+﻿using Amazon.DynamoDBv2.DataModel;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using Persistence.Utilities;
 
-namespace Persistence.Repository
+namespace Persistence.Repositories
 {
     public class JobRepository : Repository<Job>, IJobRepository
     {
-        public override string DefaultTableName => nameof(DatabaseTable.Jobs);
-
-        public JobRepository(JobContext context) : base(context)
+        public JobRepository(IDynamoDBContext context) : base(context, DatabaseTable.Jobs)
         {
-
         }
     }
 }
