@@ -4,7 +4,7 @@ namespace Domain.Entities
 {
     public class Job
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string JobTitle { get; set; }
         public string Employer { get; set; }
         public string City { get; set; }
