@@ -1,37 +1,30 @@
-﻿using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.DataModel;
-using Application.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Persistence.Utilities;
+using Amazon.DynamoDBv2.DataModel;
+using Application.Common.Interfaces;
+using Domain.Entities;
 
-namespace Persistence.Repository
+namespace Persistence.Repositories
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        private DynamoDBOperationConfig _config;
-        protected readonly IDynamoDBContext Context;
-        public virtual string DefaultTableName => "";
+        private readonly IDynamoDBContext _context;
+        private readonly DynamoDBOperationConfig _config;
 
-        public Repository(IDynamoDBContext context) 
+        public Repository(IDynamoDBContext context, string defaultTableName) 
         {
-            Context = context;
+            _context = context;
             _config = new DynamoDBOperationConfig()
             {
-                OverrideTableName = DefaultTableName
+                OverrideTableName = defaultTableName
             };
         }
 
         public async Task AddAsync(T entity)
         {
-            
-            //string json = JsonSerializer.Serialize(entity);
-            //Document entry = Document.FromJson(json);
-            //await _table.PutItemAsync(entry);
+            await _context.SaveAsync(entity, _config);
         }
 
         public Task AddRangeAsync(IEnumerable<T> entities)
@@ -46,27 +39,13 @@ namespace Persistence.Repository
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            //List<Document> documents = await _table.Scan(new ScanFilter()).GetNextSetAsync();
-            //List<T> entries = documents.ConvertAll(document => JsonSerializer.Deserialize<T>(document.ToJson()));
-            //return entries;
-
-            return null;
+            List<T> entities = await _context.ScanAsync<T>(new List<ScanCondition>(), _config).GetRemainingAsync();
+            return entities;
         }
 
         public async Task<T> GetAsync(string id)
         {
-            T entity = await Context.LoadAsync<T>(id, _config);
-
-            //Document result = await _table.GetItemAsync(id.ToString());
-
-            //if (result == null)
-            //{
-            //    return null;
-            //}
-
-            //T entry = JsonSerializer.Deserialize<T>(result.ToJson());
-            //return entry;
-
+            T entity = await _context.LoadAsync<T>(id, _config);
             return entity;
         }
 
