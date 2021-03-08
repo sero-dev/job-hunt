@@ -1,10 +1,12 @@
-﻿using Amazon.DynamoDBv2;
+﻿using System.Diagnostics.CodeAnalysis;
+using Amazon.DynamoDBv2;
 using Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Persistence
 {
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjection
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)

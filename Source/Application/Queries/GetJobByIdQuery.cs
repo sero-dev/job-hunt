@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries
 {
-    public class GetJobByIdQuery : IRequest<object>
+    public class GetJobByIdQuery : IRequest<Job>
     {
         public string Id { get; }
 
@@ -15,7 +15,7 @@ namespace Application.Queries
             Id = id;
         }
 
-        public class GetJobByIdQueryHandler : IRequestHandler<GetJobByIdQuery, object>
+        public class GetJobByIdQueryHandler : IRequestHandler<GetJobByIdQuery, Job>
         {
             private readonly IUnitOfWork _unitOfWork;
 
@@ -24,7 +24,7 @@ namespace Application.Queries
                 _unitOfWork = unitOfWork;
             }
 
-            public async Task<object> Handle(GetJobByIdQuery request, CancellationToken cancellationToken)
+            public async Task<Job> Handle(GetJobByIdQuery request, CancellationToken cancellationToken)
             {
                 Job job = await _unitOfWork.Jobs.GetAsync(request.Id);
                 return job;
