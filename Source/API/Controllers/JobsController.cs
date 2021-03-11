@@ -1,9 +1,9 @@
 ﻿using Application.Commands;
 using Application.Queries;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Application.DTOs;
 
 namespace API.Controllers
 {
@@ -35,11 +35,11 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Job job)
+        public async Task<IActionResult> Add([FromBody] CreateJobRequest newJobRequest)
         {
-            var command = new CreateJobCommand(job);
-            await _mediator.Send(command);
-            return Created("", job);
+            var command = new CreateJobCommand(newJobRequest);
+            var result = await _mediator.Send(command);
+            return result != null ? Created("", result) : UnprocessableEntity();
         }
     }
 }

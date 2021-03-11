@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Source\Persi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.IntegrationTests", "Tests\Persistence.IntegrationTests\Persistence.IntegrationTests.csproj", "{43C55FD2-1F8A-4F6C-8567-840C34A8E16F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "Tests\Application.UnitTests\Application.UnitTests.csproj", "{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{43C55FD2-1F8A-4F6C-8567-840C34A8E16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43C55FD2-1F8A-4F6C-8567-840C34A8E16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43C55FD2-1F8A-4F6C-8567-840C34A8E16F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{EF6F1367-415E-4070-A474-7D3F01A12CB5} = {1578D36A-7874-45AC-A13E-AC4EEE2183B7}
 		{26C7A391-039E-4F43-A109-82DE66B8A5ED} = {1578D36A-7874-45AC-A13E-AC4EEE2183B7}
 		{43C55FD2-1F8A-4F6C-8567-840C34A8E16F} = {96302832-D477-445B-9649-9BBDC1D4E076}
+		{00F597A3-1A29-4538-9AEC-8EE33DB5B2F4} = {96302832-D477-445B-9649-9BBDC1D4E076}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72B04D1C-CC79-432C-A5CA-A182070ED41D}
