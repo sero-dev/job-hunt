@@ -27,6 +27,15 @@ namespace API
             services.AddPersistence(Configuration);
 
             services.AddControllers();
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobHunt API", Version = "v1" });
@@ -48,7 +57,7 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
