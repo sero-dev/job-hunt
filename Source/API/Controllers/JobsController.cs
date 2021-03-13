@@ -1,4 +1,5 @@
-﻿using Application.Commands;
+﻿using System;
+using Application.Commands;
 using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{jobId}")]
-        public async Task<IActionResult> Get(string jobId)
+        public async Task<IActionResult> Get(Guid jobId)
         {
             var query = new GetJobByIdQuery(jobId);
             var result = await _mediator.Send(query);

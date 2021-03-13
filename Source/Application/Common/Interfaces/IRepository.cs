@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Domain.Contracts;
+using Domain.Common;
 
 namespace Application.Common.Interfaces
 {
     public interface IRepository<TDocument> where TDocument : IDocument
     {
-        Task<TDocument> GetAsync(string id);
+        Task<TDocument> GetAsync(Guid id);
         Task<IEnumerable<TDocument>> GetAllAsync();
         Task<IEnumerable<TDocument>> Find(Expression<Func<TDocument, bool>> predicate);
 

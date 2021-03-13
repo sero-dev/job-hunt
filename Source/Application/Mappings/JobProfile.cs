@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.DTOs;
 using AutoMapper;
-using Domain;
+using Domain.Entities;
 
 namespace Application.Mappings
 {
@@ -11,7 +11,7 @@ namespace Application.Mappings
         public JobProfile()
         {
             CreateMap<CreateJobRequest, Job>()
-                .ForMember(dest => dest.Id, src => src.MapFrom(job => Guid.NewGuid().ToString()))
+                .ForMember(dest => dest.Id, src => src.MapFrom(job => Guid.Empty))
                 .ForMember(dest => dest.DateSubmitted, src => src.MapFrom(job => job.DateSubmitted ?? DateTime.Now))
                 .AfterMap((src, dest) =>
                 {

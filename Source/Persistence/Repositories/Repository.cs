@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Application.Common.Interfaces;
-using Domain.Contracts;
+using Domain.Common;
 using MongoDB.Driver;
 
 namespace Persistence.Repositories
@@ -40,9 +40,9 @@ namespace Persistence.Repositories
             return entities;
         }
 
-        public async Task<TDocument> GetAsync(string id)
+        public async Task<TDocument> GetAsync(Guid id)
         {
-            TDocument entity = (await _collection.FindAsync(item => item.Id.ToString() == id)).FirstOrDefault();
+            TDocument entity = (await _collection.FindAsync(item => item.Id == id)).FirstOrDefault();
             return entity;
         }
 
