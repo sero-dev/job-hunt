@@ -1,6 +1,4 @@
-﻿using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Persistence.Repositories;
@@ -13,7 +11,7 @@ namespace Persistence
 
         public UnitOfWork(IMongoClient client, IConfiguration configuration)
         {
-            IMongoDatabase db = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            IMongoDatabase db = client.GetDatabase(configuration["Mongo:DatabaseName"]);
             Jobs = new JobRepository(db);
         }
     }
