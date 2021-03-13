@@ -11,7 +11,7 @@ namespace Persistence
 
         public UnitOfWork(IMongoClient client, IConfiguration configuration)
         {
-            IMongoDatabase db = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            IMongoDatabase db = client.GetDatabase(configuration["Mongo:DatabaseName"]);
             Jobs = new JobRepository(db);
         }
     }

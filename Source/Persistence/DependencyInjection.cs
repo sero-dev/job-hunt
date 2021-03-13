@@ -11,7 +11,7 @@ namespace Persistence
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IMongoClient>(new MongoClient(configuration["MongoDB:ConnectionString"]));
+            services.AddSingleton<IMongoClient>(new MongoClient(configuration.GetConnectionString("Mongo")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
