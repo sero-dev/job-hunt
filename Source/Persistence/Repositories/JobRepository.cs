@@ -1,13 +1,13 @@
-﻿using Amazon.DynamoDBv2.DataModel;
-using Application.Common.Interfaces;
-using Domain.Entities;
+﻿using Application.Common.Interfaces;
+using Domain;
+using MongoDB.Driver;
 using Persistence.Utilities;
 
 namespace Persistence.Repositories
 {
     public class JobRepository : Repository<Job>, IJobRepository
     {
-        public JobRepository(IDynamoDBContext context) : base(context, DatabaseTable.Jobs)
+        public JobRepository(IMongoDatabase database) : base(database, DatabaseTable.Jobs)
         {
         }
     }
