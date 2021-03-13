@@ -1,7 +1,7 @@
 ﻿using System;
-using Domain.Contracts;
+using Domain.Common;
 
-namespace Domain
+namespace Domain.Entities
 {
     public class Job : Document
     {

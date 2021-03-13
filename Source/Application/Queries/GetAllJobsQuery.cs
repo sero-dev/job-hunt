@@ -1,11 +1,11 @@
 ﻿using Application.Common.Interfaces;
-using Domain;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.DTOs;
 using AutoMapper;
+using Domain.Entities;
 
 namespace Application.Queries
 {

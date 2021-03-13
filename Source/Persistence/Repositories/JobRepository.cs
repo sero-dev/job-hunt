@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Domain;
+using Domain.Entities;
 using MongoDB.Driver;
 using Persistence.Utilities;
 
