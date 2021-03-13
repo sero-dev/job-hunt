@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Domain.Common;
 
 namespace Application.Common.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TDocument> where TDocument : IDocument
     {
-        Task<TEntity> GetAsync(string id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<TDocument> GetAsync(Guid id);
+        Task<IEnumerable<TDocument>> GetAllAsync();
+        Task<IEnumerable<TDocument>> Find(Expression<Func<TDocument, bool>> predicate);
 
 
-        Task AddAsync(TEntity entity);
-        Task AddRangeAsync(IEnumerable<TEntity> entities);
+        Task AddAsync(TDocument entity);
+        Task AddRangeAsync(IEnumerable<TDocument> entities);
 
-        Task RemoveAsync(TEntity entity);
-        Task RemoveRangeAsync(IEnumerable<TEntity> entities);
+        Task RemoveAsync(TDocument entity);
+        Task RemoveRangeAsync(IEnumerable<TDocument> entities);
     }
 }

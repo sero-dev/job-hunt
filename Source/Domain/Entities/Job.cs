@@ -1,10 +1,10 @@
 ﻿using System;
+using Domain.Common;
 
 namespace Domain.Entities
 {
-    public class Job
+    public class Job : Document
     {
-        public string Id { get; set; }
         public string JobTitle { get; set; }
         public string Employer { get; set; }
         public string City { get; set; }

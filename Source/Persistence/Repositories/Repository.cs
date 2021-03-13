@@ -2,59 +2,56 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Amazon.DynamoDBv2.DataModel;
 using Application.Common.Interfaces;
-using Domain.Entities;
+using Domain.Common;
+using MongoDB.Driver;
 
 namespace Persistence.Repositories
 {
-    public abstract class Repository<T> : IRepository<T> where T : class
+    public abstract class Repository<TDocument> : IRepository<TDocument> where TDocument : IDocument
     {
-        private readonly IDynamoDBContext _context;
-        private readonly DynamoDBOperationConfig _config;
+        private readonly IMongoDatabase _database;
+        private readonly IMongoCollection<TDocument> _collection;
 
-        public Repository(IDynamoDBContext context, string defaultTableName) 
+        public Repository(IMongoDatabase database, string collectionName)
         {
-            _context = context;
-            _config = new DynamoDBOperationConfig()
-            {
-                OverrideTableName = defaultTableName
-            };
+            _database = database;
+            _collection = database.GetCollection<TDocument>(collectionName);
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(TDocument entity)
         {
-            await _context.SaveAsync(entity, _config);
+            await _collection.InsertOneAsync(entity);
         }
 
-        public Task AddRangeAsync(IEnumerable<T> entities)
+        public Task AddRangeAsync(IEnumerable<TDocument> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
+        public Task<IEnumerable<TDocument>> Find(Expression<Func<TDocument, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<TDocument>> GetAllAsync()
         {
-            List<T> entities = await _context.ScanAsync<T>(new List<ScanCondition>(), _config).GetRemainingAsync();
+            IEnumerable<TDocument> entities = (await _collection.FindAsync(item => true)).ToList();
             return entities;
         }
 
-        public async Task<T> GetAsync(string id)
+        public async Task<TDocument> GetAsync(Guid id)
         {
-            T entity = await _context.LoadAsync<T>(id, _config);
+            TDocument entity = (await _collection.FindAsync(item => item.Id == id)).FirstOrDefault();
             return entity;
         }
 
-        public Task RemoveAsync(T entity)
+        public Task RemoveAsync(TDocument entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveRangeAsync(IEnumerable<T> entities)
+        public Task RemoveRangeAsync(IEnumerable<TDocument> entities)
         {
             throw new NotImplementedException();
         }

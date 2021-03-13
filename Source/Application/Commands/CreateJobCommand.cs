@@ -35,7 +35,7 @@ namespace Application.Commands
                 {
                     Job job = _mapper.Map<Job>(request.NewJobRequest);
                     await _unitOfWork.Jobs.AddAsync(job);
-                    return job.Id;
+                    return job.Id.ToString();
                 }
                 catch(Exception e)
                 {

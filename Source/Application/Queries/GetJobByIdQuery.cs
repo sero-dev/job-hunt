@@ -1,16 +1,18 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
+﻿using System;
+using Application.Common.Interfaces;
+using Domain;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Application.Queries
 {
     public class GetJobByIdQuery : IRequest<Job>
     {
-        public string Id { get; }
+        public Guid Id { get; }
 
-        public GetJobByIdQuery(string id)
+        public GetJobByIdQuery(Guid id)
         {
             Id = id;
         }
