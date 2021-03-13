@@ -1,6 +1,6 @@
 using System;
 using Application.DTOs;
-using Domain.Entities;
+using Domain;
 using Xunit;
 
 namespace Application.UnitTests.DTOs

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Application.DTOs;
 using Application.Mappings;
 using AutoMapper;
-using Domain.Entities;
+using Domain;
 using Xunit;
 
 namespace Application.UnitTests.Mappings
