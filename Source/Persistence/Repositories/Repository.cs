@@ -32,7 +32,6 @@ namespace Persistence.Repositories
         /// Adds the entity to the default collection name given to the constructor
         /// </summary>
         /// <param name="entity">The entity to be saved in the database</param>
-        /// <returns>The result of the insert operation</returns>
         public async Task AddAsync(TDocument entity)
         {
             await _collection.InsertOneAsync(entity);
@@ -69,9 +68,15 @@ namespace Persistence.Repositories
             return entity;
         }
 
-        public Task RemoveAsync(TDocument entity)
+        /// <summary>
+        /// Deletes the entity with the specified ID from the default collection name given to the constructor 
+        /// </summary>
+        /// <param name="id">The ID of the entity</param>
+        /// <returns>The number of entities deleted</returns>
+        public async Task<long> RemoveAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _collection.DeleteOneAsync(item => item.Id == id);
+            return result.DeletedCount;
         }
 
         public Task RemoveRangeAsync(IEnumerable<TDocument> entities)
