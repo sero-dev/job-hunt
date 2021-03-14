@@ -6,13 +6,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.DTOs;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Commands
 {
+    /// <summary>
+    /// Command for creating a job using MediatR's IRequest
+    /// </summary>
     public class CreateJobCommand : IRequest<string>
     {
         private CreateJobRequest NewJobRequest { get; }
 
+        /// <summary>
+        /// Command for creating a job using MediatR's IRequest
+        /// </summary>
+        /// <param name="newJobRequest">A NewJobRequest object with information about the new job</param>
         public CreateJobCommand(CreateJobRequest newJobRequest)
         {
             NewJobRequest = newJobRequest;
@@ -22,11 +30,13 @@ namespace Application.Commands
         {
             private readonly IUnitOfWork _unitOfWork;
             private readonly IMapper _mapper;
+            private readonly ILogger<CreateJobCommandHandler> _logger;
 
-            public CreateJobCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+            public CreateJobCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CreateJobCommandHandler> logger)
             {
                 _unitOfWork = unitOfWork;
                 _mapper = mapper;
+                _logger = logger;
             }
 
             public async Task<string> Handle(CreateJobCommand request, CancellationToken cancellationToken)
@@ -39,7 +49,7 @@ namespace Application.Commands
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    _logger.LogError(e.Message);
                     return null;
                 }
             }
