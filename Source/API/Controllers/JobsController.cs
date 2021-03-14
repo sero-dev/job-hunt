@@ -56,5 +56,18 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             return result != null ? Created("", result) : UnprocessableEntity();
         }
+
+        /// <summary>
+        /// Deletes the job with the specified ID
+        /// </summary>
+        /// <param name="id">The ID of the job to be deleted</param>
+        /// <returns>Ok() if job was deleted; NotFound() if job cannot be found</returns>
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteJobCommand(id);
+            var result = await _mediator.Send(command);
+            return result ? Ok() : NotFound();
+        }
     }
 }
