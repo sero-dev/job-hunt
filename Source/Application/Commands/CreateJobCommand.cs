@@ -10,10 +10,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Commands
 {
+    /// <summary>
+    /// Command for creating a job using MediatR's IRequest
+    /// </summary>
     public class CreateJobCommand : IRequest<string>
     {
         private CreateJobRequest NewJobRequest { get; }
 
+        /// <summary>
+        /// Command for creating a job using MediatR's IRequest
+        /// </summary>
+        /// <param name="newJobRequest">A NewJobRequest object with information about the new job</param>
         public CreateJobCommand(CreateJobRequest newJobRequest)
         {
             NewJobRequest = newJobRequest;

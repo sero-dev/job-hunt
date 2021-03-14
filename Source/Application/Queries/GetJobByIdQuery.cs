@@ -9,10 +9,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Queries
 {
+    /// <summary>
+    /// Query for retrieving a job by its ID using MediatR's IRequest
+    /// </summary>
     public class GetJobByIdQuery : IRequest<Job>
     {
         public Guid Id { get; }
-
+        
+        /// <summary>
+        /// Query for retrieving a job by its ID using MediatR's IRequest
+        /// </summary>
+        /// <param name="id">ID of the requested Job</param>
         public GetJobByIdQuery(Guid id)
         {
             Id = id;

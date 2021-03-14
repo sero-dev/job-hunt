@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Queries
 {
+    /// <summary>
+    /// Query for retrieving all jobs using MediatR's IRequest
+    /// </summary>
     public class GetAllJobsQuery : IRequest<ListResponse<Job>>
     {
         public class GetAllJobsQueryHandler : IRequestHandler<GetAllJobsQuery, ListResponse<Job>>
